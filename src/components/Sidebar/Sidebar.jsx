@@ -1,6 +1,7 @@
 import "./sidebar.scss"
 import { DashboardFilled, UserOutlined,DollarOutlined,PullRequestOutlined,AreaChartOutlined,QuestionCircleOutlined,SettingOutlined,ProfileOutlined, LogoutOutlined, BellOutlined } from '@ant-design/icons';
 import Navbar from "../Navbar/Navbar"
+import { Link } from 'react-router-dom';
 const Sidebar = () =>{
     return (
         
@@ -13,49 +14,52 @@ const Sidebar = () =>{
                     <p className="title">Main</p>
                     <li>
                     <DashboardFilled className="icon"/>
-                        <span>Dashboard</span>
+                        {/* <span>Dashboard</span> */}
+                    <span><Link to="/" className="btn">Dashboard</Link></span>
                     </li>
                     <p className="title">Lists</p>
                     <li>
                     <UserOutlined className="icon" />
-                        <span>Users</span>
+                    <span><Link to="/users" className="btn">Users</Link></span>
                     </li>
                     <li>
                     <DollarOutlined className="icon"/>
-                        <span>Fraud</span>
+                    <span><Link to="/fraud" className="btn">Fraud</Link></span>
                     </li>
                     <li>
                     <PullRequestOutlined className="icon"/>
-                        <span>Request</span>
+                    <span><Link to="/request" className="btn">Request</Link></span>
                     </li>
                     <li>
                     <AreaChartOutlined className="icon"/>
-                        <span>Stats</span>
+                    <span><Link to="/stats" className="btn">Stats</Link></span>
                     </li>
                     <li>
                     <BellOutlined className="icon"/>
-                        <span>Notification</span>
+                    <span><Link to="/notification" className="btn">Notification</Link></span>
                     </li>
                     <p className="title">Services</p>
 
                     <li>
                     <SettingOutlined className="icon"/>
-                        <span>Settings</span>
+                    <span><Link to="/settings" className="btn">Settings</Link></span>
+                        
                     </li>
                     <li>
                     <QuestionCircleOutlined className="icon"/>
-                        <span>FAQ</span>
+                    <span><Link to="/faq" className="btn">FAQ</Link></span>
+                       
                     </li>
                     <p className="title">User</p>
                     <li>
                     <ProfileOutlined className="icon"/>
-                        <span>Profile</span>
+                    <span><Link to="/profile" className="btn">Profile</Link></span>
+                       
                     </li>
                     <li>
                     <LogoutOutlined className="icon"/>
-                        <span>LogOut</span>
-                    </li>
-                    
+                    <span><Link to="/login" className="btn">LogOut</Link></span>
+                    </li>   
                 </ul>
             </div>
             <div className="bottom"></div>

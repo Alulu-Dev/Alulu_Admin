@@ -2,7 +2,7 @@ import React from 'react';
 import loginIcon from '../../assets/login.svg';
 import loginImg from '../../assets/icon.svg';
 import Navbar from '../../components/Navbar/Navbar'
-
+import { Link } from 'react-router-dom';
 import './Login.css';
 
 import {Container, Col, Form, Row, Button} from 'react-bootstrap';
@@ -45,7 +45,7 @@ const Login = () => {
 
     return(
         <>
-        <Navbar/>
+        {/* <Navbar/> */}
         <Container>
             
             <Row>
@@ -65,9 +65,10 @@ const Login = () => {
   <Form.Group className="mb-3 p-3" controlId="formBasicCheckbox">
     <Form.Check type="checkbox" label="Remember Password" />
   </Form.Group>
-  <Button type="submit" variant='primary btn-block' className='btnn '>
+  {/* <Button type="submit" variant='primary btn-block' className='btnn '>
         Log In
-  </Button>
+  </Button> */}
+  <span><Link to="/" variant='primary btn-block' className="btnn">LogIn</Link></span>
 </Form>
                 </Col>
                
