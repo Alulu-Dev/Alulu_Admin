@@ -51,11 +51,7 @@ const Sidebar = () =>{
                        
                     </li>
                     <p className="title">User</p>
-                    <li>
-                    <ProfileOutlined className="icon"/>
-                    <span><Link to="/profile" className="btn">Profile</Link></span>
-                       
-                    </li>
+                   
                     <li>
                     <LogoutOutlined className="icon"/>
                     <span><Link to="/login" className="btn">LogOut</Link></span>
