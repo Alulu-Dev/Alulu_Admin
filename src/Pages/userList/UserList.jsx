@@ -4,36 +4,39 @@ import { Table, Tag, Space, columns } from 'antd';
 import './userList.scss'
 import Navbar from "../../components/Navbar/Navbar"
 import 'antd/dist/antd.css'
+import {
+  DeleteOutlined,
+  EditOutlined
+} from '@ant-design/icons';
 
 function Users() {
  
   const columns = [
     {
+    
      title: 'Name',
      dataIndex: 'name',
      key: 'name',
      render: text => <a>{text}</a>,
      },
      {
-     title: 'Age',
-     dataIndex: 'age',
-     key: 'age',
+     title: 'Number of Receipts',
+     dataIndex: 'numOfReceipts',
+     key: 'numOfReceipts',
      },
      {
-     title: 'Address',
-     dataIndex: 'address',
-     key: 'address',
-     },
-     {
-     title: 'Tags',
+     title: 'Status',
      key: 'tags',
    dataIndex: 'tags',
      render: tags => (
      <>
      {tags.map(tag => {
      let color = tag.length > 5 ? 'geekblue' : 'green';
-   if (tag === 'loser') {
-    color = 'volcano';
+   if (tag === 'Active') {
+    color = 'green';
+     }
+     if (tag==='Blocked'){
+       color='red';
      }
      return (
      <Tag color={color} key={tag}>
@@ -46,11 +49,15 @@ function Users() {
      },
  {
    title: 'Action',
-  key: 'action',
+   key: 'action',
     render: (text, record) => (
      <Space size="middle">
-  <a>Invite {record.name}</a>
-    <a>Delete</a>
+  
+    <button className='userEdit'>
+      Edit
+    </button>
+    
+    <DeleteOutlined className='userDelete' />
      </Space>
     ),
      },
@@ -60,27 +67,73 @@ function Users() {
      {
      key: '1',
      name: 'John Brown',
-     age: 32,
-     address: 'New York No. 1 Lake Park',
-     tags: ['nice', 'developer'],
+     numOfReceipts : '200',
+     tags: ['Active'],
      },
      {
-     key: '2',
-     name: 'Jim Green',
-     age: 42,
-     address: 'London No. 1 Lake Park',
-     tags: ['loser'],
-     },
-     {
-     key: '3',
-     name: 'Joe Black',
-     age: 32,
-     address: 'Sidney No. 1 Lake Park',
-     tags: ['cool', 'teacher'],
-     },
+      key: '1',
+      name: 'Eshtaol Girma',
+     numOfReceipts : '10',
+      
+      tags: ['Blocked'],
+      },
+      {
+        key: '1',
+        name: 'Beken Adugna',
+       numOfReceipts : '30',
+        tags: ['Active'],
+        },
+        {
+          key: '1',
+          name: 'Mikiyas Daniel',
+         numOfReceipts : '230',
+          
+          tags: ['Blocked'],
+          },
+          {
+            key: '1',
+            name: 'Beken Adugna',
+           numOfReceipts : '30',
+            tags: ['Active'],
+            },
+            {
+              key: '1',
+              name: 'Mikiyas Daniel',
+             numOfReceipts : '230',
+              
+              tags: ['Blocked'],
+              },
+              {
+                key: '1',
+                name: 'Beken Adugna',
+               numOfReceipts : '30',
+                tags: ['Active'],
+                },
+                {
+                  key: '1',
+                  name: 'Mikiyas Daniel',
+                 numOfReceipts : '230',
+                  
+                  tags: ['Blocked'],
+                  },
+                  {
+                    key: '1',
+                    name: 'Beken Adugna',
+                   numOfReceipts : '30',
+                    tags: ['Active'],
+                    },
+                    {
+                      key: '1',
+                      name: 'Mikiyas Daniel',
+                     numOfReceipts : '230',
+                      
+                      tags: ['Blocked'],
+                      },
+
+     
      ];
  
-  // ReactDOM.render(<Table columns={columns} dataSource={data} />, mountNode);
+
 
 
 return (
