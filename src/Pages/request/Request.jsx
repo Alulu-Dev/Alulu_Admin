@@ -33,14 +33,14 @@ function Request() {
               name="tin"
               rules={[{  message: 'Please input your username!' }]}
             >
-              <Input />
+              <Input placeholder="000130532" />
             </Form.Item>
             <Form.Item
               label="FS number"
               name="fs"
               rules={[{  message: 'Please input your username!' }]}
             >
-              <Input />
+              <Input placeholder="00105985" />
             </Form.Item>
             
             <Form.Item
@@ -51,7 +51,7 @@ function Request() {
               rules={[{  message: 'Please input your username!' }]}
               
             >
-              <Input />
+              <Input placeholder="11/11/2022" />
             </Form.Item>
             <Form.Item
             
@@ -61,7 +61,7 @@ function Request() {
               rules={[{  message: 'Please input your username!' }]}
               
             >
-              <Input />
+              <Input placeholder="Kaldis coffee"/>
             </Form.Item>
             <Form.Item
             
@@ -71,7 +71,7 @@ function Request() {
               rules={[{  message: 'Please input your username!' }]}
               
             >
-              <Input />
+              <Input placeholder="1000$"/>
             </Form.Item>
             <Form.Item
             
@@ -81,7 +81,7 @@ function Request() {
               rules={[{  message: 'Please input your username!' }]}
               
             >
-              <Input />
+              <Input placeholder="00000" />
             </Form.Item>
            <div>ITEM</div>
             <Form.Item
@@ -92,7 +92,7 @@ function Request() {
               rules={[{  message: 'Please input your username!' }]}
               
             >
-              <Input />
+              <Input placeholder="Soft Drinks" />
             </Form.Item>
             <Form.Item
             
@@ -102,7 +102,7 @@ function Request() {
               rules={[{  message: 'Please input your username!' }]}
               
             >
-              <Input />
+              <Input placeholder="20" />
             </Form.Item>
             <Form.Item
             
@@ -112,7 +112,7 @@ function Request() {
               rules={[{  message: 'Please input your username!' }]}
               
             >
-              <Input />
+              <Input placeholder="20$" />
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 5, span: 2 }}>
