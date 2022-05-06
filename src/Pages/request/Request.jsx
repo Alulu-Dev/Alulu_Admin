@@ -1,161 +1,383 @@
-import React, { useEffect, useState } from 'react';
-import Sidebar from '../../components/Sidebar/Sidebar';
-import Navbar from "../../components/Navbar/Navbar"
-import 'antd/dist/antd.css'
-import './request.scss'
+import React, { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import Navbar from "../../components/Navbar/Navbar";
+import "antd/dist/antd.css";
+import "./request.scss";
 
+import {
+  Form,
+  Input,
+  Button,
+  Checkbox,
+  DatePicker,
+  Space,
+  InputNumber,
+  Popconfirm,
+  Table,
+  Typography,
+} from "antd";
 
-import { Form, Input, Button, Checkbox,DatePicker,Space } from 'antd';
+const Request = () => {
+  try {
+    localStorage.getItem("Token");
+  } catch (e) {
+    console.log(12);
+  }
+  const receipt_id = "62916bf0fc050ec99123c028";
+  const [form] = Form.useForm();
+  const [itemAPIData, setItemData] = useState([{}]);
+  const [receiptAPIData, setReceiptData] = useState([{}]);
+  const [receiptImage, setReceiptImage] = useState({});
+  const [editingKey, setEditingKey] = useState("");
 
-function Request() {
-  const [value, onChange] = useState(new Date());
-    const Demo = () => {
-        const onFinish = (values: any) => {
-          console.log('Success:', values);
-        };
-      
-        const onFinishFailed = (errorInfo: any) => {
-          console.log('Failed:', errorInfo);
-        };
-      
-        return (
-          <Form
-            name="basic"
-            labelCol={{ span: 5 }}
-            wrapperCol={{ span: 16 }}
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/api/v2/receipt/get_data/" + receipt_id + "/", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("Token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setReceiptData(data);
+        setItemData(data.items);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    fetch(
+      "http://127.0.0.1:5000/api/v2/receipt/get_image/" + receipt_id + "/",
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("Token"),
+        },
+      }
+    )
+      .then((res) => res.blob())
+      .then((imageBlob) => {
+        const imageObjectURL = URL.createObjectURL(imageBlob);
+        setReceiptImage(imageObjectURL);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const isEditing = (record) => record.key === editingKey;
+
+  const receiptData = [];
+  const itemData = [];
+
+  try {
+    for (let i = 0; i < 1; i++) {
+      receiptData.push({
+        key: i.toString(),
+        Company_Name: `ew ${i}`,
+        tin_number: receiptAPIData["tin number"],
+        fs_number: receiptAPIData["fs number"],
+        issued_date: receiptAPIData["issued date"],
+        company_name: receiptAPIData["business place name"],
+        register_number: receiptAPIData["register id"],
+      });
+    }
+    itemAPIData.forEach((element, i) => {
+      itemData.push({
+        key: i.toString(),
+        item_name: element.name,
+        quantity: element.quantity,
+        item_price: element.price,
+        total_price: element.quantity * element.price,
+      });
+    });
+  } catch (e) {
+    console.log("Error");
+  }
+
+  const EditableCell = ({
+    editing,
+    dataIndex,
+    title,
+    inputType,
+    record,
+    index,
+    children,
+    ...restProps
+  }) => {
+    const inputNode = inputType === "number" ? <InputNumber /> : <Input />;
+    return (
+      <td {...restProps}>
+        {editing ? (
+          <Form.Item
+            name={dataIndex}
+            style={{
+              margin: 0,
+            }}
+            rules={[
+              {
+                required: true,
+                message: `Please Input ${title}!`,
+              },
+            ]}
           >
-            <Form.Item
-              label="Tin number"
-              name="tin"
-              rules={[{  message: 'Please input your username!' }]}
-            >
-              <Input placeholder="000130532" />
-            </Form.Item>
-            <Form.Item
-              label="FS number"
-              name="fs"
-              rules={[{  message: 'Please input your username!' }]}
-            >
-              <Input placeholder="00105985" />
-            </Form.Item>
-            
-            <Form.Item
-            
-          
-              label="Issued date"
-              name="issuedDate"
-              rules={[{  message: 'Please input your username!' }]}
-              
-            >
-              <Input placeholder="11/11/2022" />
-            </Form.Item>
-            <Form.Item
-            
-          
-              label="Company Name"
-              name="companyName"
-              rules={[{  message: 'Please input your username!' }]}
-              
-            >
-              <Input placeholder="Kaldis coffee"/>
-            </Form.Item>
-            <Form.Item
-            
-          
-              label="Total Price"
-              name="totalPrice"
-              rules={[{  message: 'Please input your username!' }]}
-              
-            >
-              <Input placeholder="1000$"/>
-            </Form.Item>
-            <Form.Item
-            
-          
-              label="Register Number"
-              name="registerNumber"
-              rules={[{  message: 'Please input your username!' }]}
-              
-            >
-              <Input placeholder="00000" />
-            </Form.Item>
-           <div>ITEM</div>
-            <Form.Item
-            
-          
-              label="Item Name"
-              name="itemName"
-              rules={[{  message: 'Please input your username!' }]}
-              
-            >
-              <Input placeholder="Soft Drinks" />
-            </Form.Item>
-            <Form.Item
-            
-          
-              label="Quantity"
-              name="quantity"
-              rules={[{  message: 'Please input your username!' }]}
-              
-            >
-              <Input placeholder="20" />
-            </Form.Item>
-            <Form.Item
-            
-          
-              label="Item Price"
-              name="itemPrice"
-              rules={[{  message: 'Please input your username!' }]}
-              
-            >
-              <Input placeholder="20$" />
-            </Form.Item>
+            {inputNode}
+          </Form.Item>
+        ) : (
+          children
+        )}
+      </td>
+    );
+  };
 
-            <Form.Item wrapperCol={{ offset: 5, span: 2 }}>
-               <Button type="submit" variant='primary btn-block' className='btnn '>
-        Submit
-  </Button> 
-            </Form.Item>
+  const edit = (record) => {
+    form.setFieldsValue({
+      item_name: "",
+      quantity: "",
+      item_price: "",
+      ...record,
+    });
+    setEditingKey(record.key);
+  };
 
-            
-          </Form>
+  const cancel = () => {
+    setEditingKey("");
+  };
+
+  const save = async (key) => {
+    try {
+      const row = await form.validateFields();
+      const newData = [...itemData];
+      console.log(newData);
+      const index = newData.findIndex((item) => key === item.key);
+      console.log(index);
+      // if (index > -1) {
+      //   const item = newData[index];
+      //   newData.splice(index, 1, { ...item, ...row });
+      //   setItemData(newData);
+      //   setEditingKey("");
+      // } else {
+      newData.push(row);
+      setItemData(newData);
+      setEditingKey("");
+      // }
+    } catch (errInfo) {
+      console.log("Validate Failed:", errInfo);
+    }
+  };
+
+  const receipts_column = [
+    {
+      title: "Tin Number",
+      dataIndex: "tin_number",
+      width: "15%",
+      editable: true,
+    },
+    {
+      title: "FS Number",
+      dataIndex: "fs_number",
+      width: "10%",
+      editable: true,
+    },
+    {
+      title: "Issued Date",
+      dataIndex: "issued_date",
+      width: "10%",
+      editable: true,
+    },
+    {
+      title: "Company Name",
+      dataIndex: "company_name",
+      width: "10%",
+      editable: true,
+    },
+    {
+      title: "Register Number",
+      dataIndex: "register_number",
+      width: "10%",
+      editable: true,
+    },
+    {
+      title: "operation",
+      dataIndex: "operation",
+      width: "5%",
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            {/* <Typography.Link
+				onClick={() => save(record.key)}
+				style={{
+					marginRight: 2,
+				}}
+				>
+				Save
+				</Typography.Link> */}
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link
+            disabled={editingKey !== ""}
+            onClick={() => edit(record)}
+          >
+            Edit
+          </Typography.Link>
         );
-      };
-    //   ReactDOM.render(<Demo />, mountNode);
-return (   
-  <div className='req'>
-          <div className="usersContainer">
-              <div className='row'>
-                <div className='col-2 sidebar'>
-                <Sidebar/> 
-                
-              </div>
+      },
+    },
+  ];
+  const items_column = [
+    {
+      title: "Item Name",
+      dataIndex: "item_name",
+      width: "15%",
+      editable: true,
+    },
+    {
+      title: "Quantity",
+      dataIndex: "quantity",
+      width: "10%",
+      editable: true,
+    },
+    {
+      title: "Item Price",
+      dataIndex: "item_price",
+      width: "10%",
+      editable: true,
+    },
+    {
+      title: "Total Price",
+      dataIndex: "total_price",
+      width: "10%",
+      editable: true,
+    },
+    {
+      title: "operation",
+      dataIndex: "operation",
+      width: "5%",
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            {/* <Typography.Link
+				onClick={() => save(record.key)}
+				style={{
+					marginRight: 2,
+				}}
+				>
+				Save
+				</Typography.Link> */}
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link
+            disabled={editingKey !== ""}
+            onClick={() => edit(record)}
+          >
+            Edit
+          </Typography.Link>
+        );
+      },
+    },
+  ];
+  const mergedReceiptsColumn = receipts_column.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
 
-                 <div className='receiptImage col-10'>
-                   <Navbar className="nav"/>
-                   <div className='row'>
-                       <div className='col-6 imgg'>
-                    <img src="https://media-cdn.tripadvisor.com/media/photo-s/02/bd/b0/b1/yod-abyssinia-traditional.jpg" alt="" className="receipt_image" />
-                           
-                       </div>
-                       <div className='col-6 formm'>
-                       <Demo 
-                    mountNode />
-                       </div>
-                   </div>
-                  
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === "quantity" ? "number" : "text",
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+  const mergedItemsColumn = items_column.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === "quantity" ? "number" : "text",
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+
+  return (
+    <div className="">
+      <div className="container_all">
+        <div className="row">
+          <div className="col-2 sidebar">
+            <Sidebar />
+          </div>
+
+          <div className="row col-10 main">
+            <Navbar className="nav col-10" />
+            <div className="col-5">
+              <img
+                src={receiptImage}
+                alt="No Data"
+                className="col-12 receipt_image"
+              />
             </div>
+            <div className="col-6">
+              <Form form={form} component={false}>
+                <Table
+                  components={{
+                    body: {
+                      cell: EditableCell,
+                    },
+                  }}
+                  bordered
+                  dataSource={receiptData}
+                  columns={mergedReceiptsColumn}
+                  rowClassName="editable-row"
+                  pagination={{
+                    onChange: cancel,
+                  }}
+                />
+              </Form>
+
+              <Form form={form} component={false}>
+                <Table
+                  components={{
+                    body: {
+                      cell: EditableCell,
+                    },
+                  }}
+                  bordered
+                  dataSource={itemData}
+                  columns={mergedItemsColumn}
+                  rowClassName="editable-row"
+                  pagination={{
+                    onChange: cancel,
+                  }}
+                />
+              </Form>
+            </div>
+            <Button className="ml-auto col-5" onClick={save}>
+              Update Receipt Data
+            </Button>
           </div>
         </div>
-  
-  
-</div>
-)
-}
+      </div>
+    </div>
+  );
+};
 
-
-export default Request
+export default Request;
