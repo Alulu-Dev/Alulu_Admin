@@ -1,112 +1,118 @@
-import React from 'react';
-import Sidebar from '../../components/Sidebar/Sidebar';
-import { Table, Tag, Space, columns } from 'antd';
-import './fraud.scss'
-import Navbar from "../../components/Navbar/Navbar"
-import 'antd/dist/antd.css'
+import React, { useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import { Table, Tag, Space, columns, Divider } from "antd";
+import "./fraud.scss";
+import Navbar from "../../components/Navbar/Navbar";
+import "antd/dist/antd.css";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 function Fraud() {
- 
+  const [fraudList, setFraudList] = useState([{}]);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/api/v2/request/all/", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("Token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setFraudList(data));
+  }, []);
+
+  console.log(fraudList["Unresolved Requests"]);
+
   const columns = [
     {
-     title: 'Name',
-     dataIndex: 'name',
-     key: 'name',
-     render: text => <a>{text}</a>,
-     },
-     {
-     title: 'Age',
-     dataIndex: 'age',
-     key: 'age',
-     },
-     {
-     title: 'Address',
-     dataIndex: 'address',
-     key: 'address',
-     },
-     {
-     title: 'Tags',
-     key: 'tags',
-   dataIndex: 'tags',
-     render: tags => (
-     <>
-     {tags.map(tag => {
-     let color = tag.length > 5 ? 'geekblue' : 'green';
-   if (tag === 'loser') {
-    color = 'volcano';
-     }
-     return (
-     <Tag color={color} key={tag}>
-     {tag.toUpperCase()}
-     </Tag>
-     );
-     })}
-    </>
-    ),
-     },
- {
-   title: 'Action',
-  key: 'action',
-    render: (text, record) => (
-     <Space size="middle">
-  <a>Invite {record.name}</a>
-    <a>Delete</a>
-     </Space>
-    ),
-     },
-    ];
-     
-     const data = [
-     {
-     key: '1',
-     name: 'John Brown',
-     age: 32,
-     address: 'New York No. 1 Lake Park',
-     tags: ['nice', 'developer'],
-     },
-     {
-     key: '2',
-     name: 'Jim Green',
-     age: 42,
-     address: 'London No. 1 Lake Park',
-     tags: ['loser'],
-     },
-     {
-     key: '3',
-     name: 'Joe Black',
-     age: 32,
-     address: 'Sidney No. 1 Lake Park',
-     tags: ['cool', 'teacher'],
-     },
-     ];
- 
-  // ReactDOM.render(<Table columns={columns} dataSource={data} />, mountNode);
+      title: "Receipt",
+      dataIndex: "Receipt",
+      key: "Receipt",
+      render: (text) => <a>{text}</a>,
+    },
 
+    {
+      title: "User",
+      dataIndex: "User",
+      key: "User",
+    },
 
-return (
+    {
+      title: "Status",
+      key: "status",
+      dataIndex: "status",
+      render: (status) => (
+        <>
+          {status?.map((tag) => {
+            let color = tag.length > 5 ? "geekblue" : "green";
+            if (tag === "Resolved") {
+              color = "green";
+            }
+            if (tag === "Unresolved") {
+              color = "red";
+            }
+            return (
+              <Tag color={color} key={tag}>
+                {tag.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </>
+      ),
+    },
 
-  <div className='user'>
-          <div className="usersContainer">
-              <div className='row'>
-                <div className='col-2 sidebar'>
-                <Sidebar/> 
-                
-              </div>
+    {
+      title: "Action",
+      key: "action",
+      render: (text, record) => (
+        <Space size="middle">
+          <button
+            className="userEdit"
+            onClick={() => <Navigate to="/matcher" />}
+          >
+            Edit
+          </button>
+        </Space>
+      ),
+    },
+  ];
 
-                 <div className='userTable col-10 main'>
-                   <Navbar className="nav"/>
-                   <Table columns={columns} 
-                    dataSource={data}
-                    mountNode />
-                 
-            </div>
+  const data = [];
+
+  return (
+    <div className="user">
+      <div className="usersContainer">
+        <div className="row">
+          <div className="col-2 sidebar">
+            <Sidebar />
+          </div>
+
+          <div className="userTable col-10 main">
+            <Navbar className="nav" />
+            {fraudList["Unresolved Requests"]?.length >= 1 ? (
+              <Table
+                columns={columns}
+                dataSource={fraudList["Unresolved Requests"]}
+                mountNode
+              />
+            ) : (
+              <Table columns={columns} dataSource={data} mountNode />
+            )}
+            {fraudList["Resolved Requests"]?.length >= 1 ? (
+              <Table
+                columns={columns}
+                dataSource={fraudList["Resolved Requests"]}
+                mountNode
+              />
+            ) : (
+              <Table columns={columns} dataSource={data} mountNode />
+            )}
           </div>
         </div>
-  
-  
-</div>
-)
+      </div>
+    </div>
+  );
 }
 
-
-export default Fraud
+export default Fraud;
