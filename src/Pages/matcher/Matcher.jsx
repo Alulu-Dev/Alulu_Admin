@@ -1,5 +1,5 @@
 import { Table } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { SearchOutlined } from "@ant-design/icons";
@@ -7,7 +7,8 @@ import { SearchOutlined } from "@ant-design/icons";
 
 const columns = [
   {
-    title: "Receipts",
+    title: "Items",
+    key: "name",
     dataIndex: "name",
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => {
       return (
@@ -50,6 +51,7 @@ const columns = [
 const columns_2 = [
   {
     title: "Tags",
+    key: "name",
     dataIndex: "name",
     // render: () => <Input />,
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => {
@@ -93,15 +95,51 @@ for (let i = 0; i < 1; i++) {
 
 const Matcher = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [tag, setTag] = useState('')
+  const [tag, setTag] = useState("");
+  const [allItems, setAllItems] = useState([{}]);
+  const [allTags, setAllTags] = useState([{}]);
+
   const onSelectChange = (newSelectedRowKeys) => {
     console.log("selectedRowKeys changed: ", selectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
   };
 
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/api/v2/tags/get/items/", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("Token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setAllItems(data));
+  }, []);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/api/v2/tags/get/tags/", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("Token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setAllTags(data));
+  }, []);
+
   const handleSubmit = () => {
-    console.log(tag)
-  }
+    console.log(tag);
+    fetch("http://127.0.0.1:5000/api/v2/tags/create/" + tag, {
+      method: "pOST",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("Token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  };
 
   const rowSelection = {
     selectedRowKeys,
@@ -149,22 +187,25 @@ const Matcher = () => {
           <div className="col-2 sidebar">
             <Sidebar />
           </div>
-          
+
           <div className="userTable col-5 main">
             {/* <Navbar className="nav"/> */}
             <Table
               rowSelection={rowSelection}
               columns={columns}
-              dataSource={data}
+              dataSource={allItems.items}
             />
           </div>
           <div className="userTable col-5 main">
-            <Table columns={columns_2} dataSource={data} />
+            <Table columns={columns_2} dataSource={allTags.tags} />
 
-            <input value={tag} onChange={(e) => setTag(e.target.value)} placeholder="enter tag"/> 
+            <input
+              value={tag}
+              onChange={(e) => setTag(e.target.value)}
+              placeholder="enter tag"
+            />
             <button onClick={handleSubmit}>Add Tag</button>
           </div>
-          
         </div>
       </div>
     </div>
