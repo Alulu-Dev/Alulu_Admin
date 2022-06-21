@@ -4,7 +4,10 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import { Table, Tag, Space, columns, Divider } from "antd";
 import "./fraud.scss";
 import Navbar from "../../components/Navbar/Navbar";
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
+=======
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
 import "antd/dist/antd.css";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
@@ -16,7 +19,11 @@ function Fraud() {
       method: "GET",
       headers: {
         Accept: "application/json",
+<<<<<<< HEAD
         Authorization: "Bearer " + sessionStorage.getItem("Token"),
+=======
+        Authorization: "Bearer " + localStorage.getItem("Token"),
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
       },
     })
       .then((res) => res.json())
@@ -66,12 +73,23 @@ function Fraud() {
     {
       title: "Action",
       key: "action",
+<<<<<<< HEAD
       dataIndex: "Receipt",
       render: (text) => (
         <Space size="middle">
           <Link to={"/request/" + text} className="btn btn-danger">
             Edit
           </Link>
+=======
+      render: (text, record) => (
+        <Space size="middle">
+          <button
+            className="userEdit"
+            onClick={() => <Navigate to="/matcher" />}
+          >
+            Edit
+          </button>
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
         </Space>
       ),
     },

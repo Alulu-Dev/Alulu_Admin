@@ -1,14 +1,25 @@
 import React from "react";
 import "./widget.scss";
 import {
+<<<<<<< HEAD
+=======
+  UpOutlined,
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
   UserOutlined,
   MoneyCollectOutlined,
   PullRequestOutlined,
   ReconciliationOutlined,
 } from "@ant-design/icons";
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
 
 const Widget = ({ type, incoming_data }) => {
+=======
+
+const Widget = ({ type, incoming_data }) => {
+  //Tempo
+ 
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
   let data;
 
   switch (type) {
@@ -17,8 +28,11 @@ const Widget = ({ type, incoming_data }) => {
         title: "USERS",
         amount: incoming_data,
         isMoney: false,
+<<<<<<< HEAD
         link: "See all users",
         to: "/users",
+=======
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
         icon: <UserOutlined className="icon" />,
       };
       break;
@@ -27,7 +41,10 @@ const Widget = ({ type, incoming_data }) => {
         title: "FRAUD",
         amount: incoming_data,
         isMoney: false,
+<<<<<<< HEAD
         to: "/",
+=======
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
         icon: <MoneyCollectOutlined className="icon" />,
       };
       break;
@@ -36,8 +53,11 @@ const Widget = ({ type, incoming_data }) => {
         title: "REQUEST",
         amount: incoming_data,
         isMoney: false,
+<<<<<<< HEAD
         link: "See all requests",
         to: "/fraud",
+=======
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
         icon: <PullRequestOutlined className="icon" />,
       };
       break;
@@ -46,7 +66,10 @@ const Widget = ({ type, incoming_data }) => {
         title: "RECEIPTS",
         amount: incoming_data,
         isMoney: false,
+<<<<<<< HEAD
         to: "/",
+=======
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
         icon: <ReconciliationOutlined className="icon" />,
       };
 
@@ -59,6 +82,7 @@ const Widget = ({ type, incoming_data }) => {
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">{data.amount}</span>
+<<<<<<< HEAD
         <span className="link">
           <Link className="more-link" to={data.to}>
             {data.link}{" "}
@@ -67,6 +91,15 @@ const Widget = ({ type, incoming_data }) => {
       </div>
       <div className="right">
         <div className="percentage negative"></div>
+=======
+        <span className="link">{data.link}</span>
+      </div>
+      <div className="right">
+        <div className="percentage negative">
+          
+         
+        </div>
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
         {data.icon}
       </div>
     </div>

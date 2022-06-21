@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
+<<<<<<< HEAD
 import { Table, Tag, Space, Menu, Dropdown } from "antd";
 import "./userList.scss";
 import Navbar from "../../components/Navbar/Navbar";
 import "antd/dist/antd.css";
+=======
+import { Table, Tag, Space, columns } from "antd";
+import "./userList.scss";
+import Navbar from "../../components/Navbar/Navbar";
+import "antd/dist/antd.css";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
 
 function Users() {
   const [usersList, setUsersList] = useState([{}]);
@@ -13,6 +21,7 @@ function Users() {
       method: "GET",
       headers: {
         Accept: "application/json",
+<<<<<<< HEAD
         Authorization: "Bearer " + sessionStorage.getItem("Token"),
       },
     })
@@ -191,6 +200,60 @@ function Users() {
           >
             Downgrade to Customer
           </button>
+=======
+        Authorization: "Bearer " + localStorage.getItem("Token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setUsersList(data));
+  }, []);
+
+  console.log(usersList);
+
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "Number of Receipts",
+      dataIndex: "numOfReceipts",
+      key: "numOfReceipts",
+    },
+    {
+      title: "Status",
+      key: "tags",
+      dataIndex: "tags",
+      render: (tags) => (
+        <>
+          {tags?.map((tag) => {
+            let color = tag.length > 5 ? "geekblue" : "green";
+            if (tag === "Active") {
+              color = "green";
+            }
+            if (tag === "Blocked") {
+              color = "red";
+            }
+            return (
+              <Tag color={color} key={tag}>
+                {tag.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </>
+      ),
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (text, record) => (
+        <Space size="middle">
+          <button className="userEdit">Edit</button>
+
+          <DeleteOutlined className="userDelete" />
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
         </Space>
       ),
     },

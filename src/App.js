@@ -20,6 +20,7 @@ import Request from "./Pages/request/Request";
 import Matcher from "./Pages/matcher/Matcher";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+<<<<<<< HEAD
 
 function App() {
   return (
@@ -28,6 +29,36 @@ function App() {
         <Routes>
           {/* <Route exact path="/" element={<PrivateRoute />}></Route> */}
 
+=======
+function App() {
+  // const [initialData, setInitialData] = useState([{}])
+
+  // useEffect(()=> {
+  //   fetch('http://127.0.0.1:5000/api',{
+  //     headers:{
+  //     'Content-Type': 'application/json',
+  //     'Accept': 'application/json'}
+  //   }).then(
+  //     response => response.json()
+  //   ).then(data => setInitialData(data))
+  // },[]);
+
+  return (
+    //  <div className='App'>
+    //    <h1>{initialData.title}</h1>
+    //  </div>
+    // <Router>
+    // < Navbar/>
+    // <Sidebar/>
+    //   <Switch>
+    //   <Route path='/'/>
+    //   </Switch>
+    // </Router>
+
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
           <Route exact path="/" element={<Home />}></Route>
 
           <Route path="login" element={<Login />}></Route>
@@ -37,12 +68,19 @@ function App() {
             <Route path="userId" element={<Single />} />
             <Route path="new" element={<New />} />
           </Route>
+<<<<<<< HEAD
 
           <Route exact path="/fraud" element={<Fraud />}></Route>
 
           <Route exact path="/request/:id" element={<Request />}></Route>
           <Route exact path="/matcher" element={<Matcher />}></Route>
 
+=======
+          <Route exact path="/fraud" element={<Fraud />}></Route>
+          <Route exact path="/request" element={<Request />}></Route>
+          <Route exact path="/matcher" element={<Matcher />}></Route>
+
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
           <Route path="/" element={<Home />}></Route>
         </Routes>
       </BrowserRouter>

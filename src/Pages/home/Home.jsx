@@ -14,7 +14,11 @@ const Home = () => {
       method: "GET",
       headers: {
         Accept: "application/json",
+<<<<<<< HEAD
         Authorization: "Bearer " + sessionStorage.getItem("Token"),
+=======
+        Authorization: "Bearer " + localStorage.getItem("Token"),
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
       },
     })
       .then((res) => res.json())
@@ -45,7 +49,10 @@ const Home = () => {
         </div>
         <Chart
           // data={userData}
+<<<<<<< HEAD
           key={monthlyData}
+=======
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
           data={monthlyData}
           title="User Analytics"
           grid

@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
 import { Navigate, useParams } from "react-router-dom";
 
+=======
+import { Navigate } from "react-router-dom";
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Navbar from "../../components/Navbar/Navbar";
 import "antd/dist/antd.css";
@@ -10,12 +14,19 @@ import {
   Form,
   Input,
   Button,
+<<<<<<< HEAD
+=======
+  Checkbox,
+  DatePicker,
+  Space,
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
   InputNumber,
   Popconfirm,
   Table,
   Typography,
 } from "antd";
 
+<<<<<<< HEAD
 function logTry() {
   const x = sessionStorage.getItem("Token");
   if (x) {
@@ -79,19 +90,37 @@ const Request = () => {
   const receipt_id = id;
   const [form] = Form.useForm();
   const [formReceipt] = Form.useForm();
+=======
+const Request = () => {
+  try {
+    localStorage.getItem("Token");
+  } catch (e) {
+    console.log(12);
+  }
+  const receipt_id = "62916bf0fc050ec99123c028";
+  const [form] = Form.useForm();
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
   const [itemAPIData, setItemData] = useState([{}]);
   const [receiptAPIData, setReceiptData] = useState([{}]);
   const [receiptImage, setReceiptImage] = useState({});
   const [editingKey, setEditingKey] = useState("");
+<<<<<<< HEAD
   const [editedId, setEditID] = useState("");
   const [isItemEdit, setIsItemEdit] = useState(false);
   const [isReceiptEdit, setIsReceiptEdit] = useState(false);
+=======
+
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
   useEffect(() => {
     fetch("http://127.0.0.1:5000/api/v2/receipt/get_data/" + receipt_id + "/", {
       method: "GET",
       headers: {
         Accept: "application/json",
+<<<<<<< HEAD
         Authorization: "Bearer " + sessionStorage.getItem("Token"),
+=======
+        Authorization: "Bearer " + localStorage.getItem("Token"),
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
       },
     })
       .then((res) => res.json())
@@ -109,7 +138,11 @@ const Request = () => {
         method: "GET",
         headers: {
           Accept: "application/json",
+<<<<<<< HEAD
           Authorization: "Bearer " + sessionStorage.getItem("Token"),
+=======
+          Authorization: "Bearer " + localStorage.getItem("Token"),
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
         },
       }
     )
@@ -122,7 +155,10 @@ const Request = () => {
   }, []);
 
   const isEditing = (record) => record.key === editingKey;
+<<<<<<< HEAD
   const isEditingItems = (record) => record.key === editingKey;
+=======
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
 
   const receiptData = [];
   const itemData = [];
@@ -130,7 +166,12 @@ const Request = () => {
   try {
     for (let i = 0; i < 1; i++) {
       receiptData.push({
+<<<<<<< HEAD
         key: receipt_id,
+=======
+        key: i.toString(),
+        Company_Name: `ew ${i}`,
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
         tin_number: receiptAPIData["tin number"],
         fs_number: receiptAPIData["fs number"],
         issued_date: receiptAPIData["issued date"],
@@ -141,7 +182,10 @@ const Request = () => {
     itemAPIData.forEach((element, i) => {
       itemData.push({
         key: i.toString(),
+<<<<<<< HEAD
         id: element.id,
+=======
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
         item_name: element.name,
         quantity: element.quantity,
         item_price: element.price,
@@ -151,7 +195,11 @@ const Request = () => {
   } catch (e) {
     console.log("Error");
   }
+<<<<<<< HEAD
   const { TextArea } = Input;
+=======
+
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
   const EditableCell = ({
     editing,
     dataIndex,
@@ -162,8 +210,12 @@ const Request = () => {
     children,
     ...restProps
   }) => {
+<<<<<<< HEAD
     const inputNode =
       inputType === "number" ? <InputNumber /> : <TextArea width={"400px"} />;
+=======
+    const inputNode = inputType === "number" ? <InputNumber /> : <Input />;
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
     return (
       <td {...restProps}>
         {editing ? (
@@ -171,13 +223,17 @@ const Request = () => {
             name={dataIndex}
             style={{
               margin: 0,
+<<<<<<< HEAD
               width: "200px",
+=======
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
             }}
             rules={[
               {
                 required: true,
                 message: `Please Input ${title}!`,
               },
+<<<<<<< HEAD
               // {
               //   // function(rule, value, callback, source, options)
 
@@ -194,6 +250,8 @@ const Request = () => {
               //     };
               //   }
               // },
+=======
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
             ]}
           >
             {inputNode}
@@ -205,6 +263,7 @@ const Request = () => {
     );
   };
 
+<<<<<<< HEAD
   const editReceipt = (_record) => {
     setIsReceiptEdit(!isReceiptEdit);
     formReceipt.setFieldsValue({
@@ -221,6 +280,9 @@ const Request = () => {
   const edit = (record, id) => {
     setEditID(id);
     setIsItemEdit(!isItemEdit);
+=======
+  const edit = (record) => {
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
     form.setFieldsValue({
       item_name: "",
       quantity: "",
@@ -230,6 +292,7 @@ const Request = () => {
     setEditingKey(record.key);
   };
 
+<<<<<<< HEAD
   const cancelReceipt = () => {
     setEditingKey("");
     setIsReceiptEdit(!isReceiptEdit);
@@ -252,6 +315,29 @@ const Request = () => {
     try {
       const row = await form.validateFields();
       UpdateItemData(editedId, row);
+=======
+  const cancel = () => {
+    setEditingKey("");
+  };
+
+  const save = async (key) => {
+    try {
+      const row = await form.validateFields();
+      const newData = [...itemData];
+      console.log(newData);
+      const index = newData.findIndex((item) => key === item.key);
+      console.log(index);
+      // if (index > -1) {
+      //   const item = newData[index];
+      //   newData.splice(index, 1, { ...item, ...row });
+      //   setItemData(newData);
+      //   setEditingKey("");
+      // } else {
+      newData.push(row);
+      setItemData(newData);
+      setEditingKey("");
+      // }
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
     }
@@ -261,7 +347,11 @@ const Request = () => {
     {
       title: "Tin Number",
       dataIndex: "tin_number",
+<<<<<<< HEAD
       width: "10%",
+=======
+      width: "15%",
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
       editable: true,
     },
     {
@@ -296,14 +386,30 @@ const Request = () => {
         const editable = isEditing(record);
         return editable ? (
           <span>
+<<<<<<< HEAD
             <Popconfirm title="Sure to cancel?" onConfirm={cancelReceipt}>
+=======
+            {/* <Typography.Link
+				onClick={() => save(record.key)}
+				style={{
+					marginRight: 2,
+				}}
+				>
+				Save
+				</Typography.Link> */}
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
               <a>Cancel</a>
             </Popconfirm>
           </span>
         ) : (
           <Typography.Link
             disabled={editingKey !== ""}
+<<<<<<< HEAD
             onClick={() => editReceipt(record)}
+=======
+            onClick={() => edit(record)}
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
           >
             Edit
           </Typography.Link>
@@ -315,27 +421,37 @@ const Request = () => {
     {
       title: "Item Name",
       dataIndex: "item_name",
+<<<<<<< HEAD
       key: "item_name",
+=======
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
       width: "15%",
       editable: true,
     },
     {
       title: "Quantity",
       dataIndex: "quantity",
+<<<<<<< HEAD
       key: "quantity",
+=======
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
       width: "10%",
       editable: true,
     },
     {
       title: "Item Price",
       dataIndex: "item_price",
+<<<<<<< HEAD
       key: "item_price",
+=======
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
       width: "10%",
       editable: true,
     },
     {
       title: "Total Price",
       dataIndex: "total_price",
+<<<<<<< HEAD
       key: "total_price",
       width: "10%",
       editable: false,
@@ -349,6 +465,27 @@ const Request = () => {
         const editable = isEditingItems(record);
         return editable ? (
           <span>
+=======
+      width: "10%",
+      editable: true,
+    },
+    {
+      title: "operation",
+      dataIndex: "operation",
+      width: "5%",
+      render: (_, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            {/* <Typography.Link
+				onClick={() => save(record.key)}
+				style={{
+					marginRight: 2,
+				}}
+				>
+				Save
+				</Typography.Link> */}
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
               <a>Cancel</a>
             </Popconfirm>
@@ -356,7 +493,11 @@ const Request = () => {
         ) : (
           <Typography.Link
             disabled={editingKey !== ""}
+<<<<<<< HEAD
             onClick={() => edit(record, record.id)}
+=======
+            onClick={() => edit(record)}
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
           >
             Edit
           </Typography.Link>
@@ -392,7 +533,11 @@ const Request = () => {
         inputType: col.dataIndex === "quantity" ? "number" : "text",
         dataIndex: col.dataIndex,
         title: col.title,
+<<<<<<< HEAD
         editing: isEditingItems(record),
+=======
+        editing: isEditing(record),
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
       }),
     };
   });
@@ -415,7 +560,11 @@ const Request = () => {
               />
             </div>
             <div className="col-6">
+<<<<<<< HEAD
               <Form form={formReceipt} component={false}>
+=======
+              <Form form={form} component={false}>
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
                 <Table
                   components={{
                     body: {
@@ -424,7 +573,10 @@ const Request = () => {
                   }}
                   bordered
                   dataSource={receiptData}
+<<<<<<< HEAD
                   rowKey={(receiptData, index) => receiptData.id}
+=======
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
                   columns={mergedReceiptsColumn}
                   rowClassName="editable-row"
                   pagination={{
@@ -443,7 +595,10 @@ const Request = () => {
                   bordered
                   dataSource={itemData}
                   columns={mergedItemsColumn}
+<<<<<<< HEAD
                   rowKey={(itemData, index) => itemData.id}
+=======
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
                   rowClassName="editable-row"
                   pagination={{
                     onChange: cancel,
@@ -451,6 +606,7 @@ const Request = () => {
                 />
               </Form>
             </div>
+<<<<<<< HEAD
             {isItemEdit && (
               <Button className="ml-auto col-5" onClick={saveItem}>
                 Update Item Data
@@ -461,6 +617,11 @@ const Request = () => {
                 Update Receipt Data
               </Button>
             )}
+=======
+            <Button className="ml-auto col-5" onClick={save}>
+              Update Receipt Data
+            </Button>
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
           </div>
         </div>
       </div>

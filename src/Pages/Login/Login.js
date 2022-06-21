@@ -7,7 +7,11 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 
 import { Container, Col, Form, Row, Button } from "react-bootstrap";
+<<<<<<< HEAD
 // import { ReorderSharp } from "@material-ui/icons";
+=======
+import { ReorderSharp } from "@material-ui/icons";
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
 
 // class Login extends React.Component{
 //     state={
@@ -60,11 +64,19 @@ function Login() {
     })
       .then((incoming) => incoming.json())
       .then((response) => {
+<<<<<<< HEAD
         sessionStorage.setItem("Token", response.access_token);
         // localStorage.setItem("Token", response.access_token);
         navigate("/");
       })
       .catch((err) => alert("wrong login infos"));
+=======
+        console.log(response);
+        sessionStorage.setItem("Token", response.access_token);
+        localStorage.setItem("Token", response.access_token);
+        navigate("/");
+      });
+>>>>>>> 1717102612d3fb39bf6d542b5293f683d1509d83
 
     // result = result.then((res) => {
     //   // console.log(res.headers.entries());
